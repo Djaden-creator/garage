@@ -51,7 +51,7 @@
                 <input type="email" name="email" placeholder="your email" class="box">
                 <input type="password" name="password" placeholder="password" class="box">
                 <i class="fas fa-eye"></i>
-                <input type="submit" name="signup" value="send message" class="btn">
+                <input type="submit" name="signup" value="me connecter" class="btn">
                 <p style="margin-top: 10px;"><a href="">mot de passe oublier?</a></p>
             </form>
 
