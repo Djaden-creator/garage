@@ -1,7 +1,15 @@
-NB: a tout lire!!!
-1.utilisation en mode local 
+NB: a tout lire!!! et ne modifier aucune lettre etc... copier les comme ils sont !!!
 
-la creation de base de donné garage:
+1.utilisation en mode local 
+Nb: tout sur ce site est basé sur la base de donné vous trouverai au debut que le site est vide.
+voici les clés pour se connecter a la base de donnée local :
+$dsn = 'mysql:host=localhost;dbname=garage';
+$username = 'root';
+$password = getenv('');
+---------------------------------------------------------------------------------------------
+2. ce que vous devez faire pour bien utiliser ce site:
+
+-la creation de la base de donné garage:
 
 CREATE DATABASE if not exist garage
 
@@ -28,12 +36,23 @@ PRIMARY KEY(idUser)
 //nous allons inserer un utilisateur admin: le mot de passe est:482c811da5d5b4bc6d497ffa98491e38 et
 l'admin doit avoir ID=1 dans la base de donnée enfin de tout gerer
 le password en md5:482c811da5d5b4bc6d497ffa98491e38 est egale a password123, 
-NB: une fois connecté 
+
+voici le code sql en mode local pour enregistrer un admin:
+
+INSERT INTO `users`(`username`, `name`, `email`, `numero`, `pays`,`adress`, `passw`, `image`, `embaucher`) VALUES ('Vincent','Vincent Parrot','admin@gmail.com','+33756321569','france lyon','5 rue andré bollier','482c811da5d5b4bc6d497ffa98491e38','','20/20/1'); 
+//vous pouvez modifier le details si dessus en mettant vos propre details
+
+
+NB: une fois enregistrer et dont connectez vous.
+ le contact et l'adress de l'admin sera afficher sur le pieds de toute les pages.
+ il faut que l'admin puisse avoir le id ==1 
+
+
 1. modifier le mot de passe et la photo de profil de l'admin. 
 2. enregistrez un utilisateur qui aura un ID=2 car c'est employé  gerera les reviews ou temoignages des visiteurs 
 pour qu'ils soient visible sur la page d'accueil du site.
 
-INSERT INTO `users`(`username`, `name`, `email`, `numero`, `pays`,`adress`, `passw`, `image`, `embaucher`) VALUES ('Vincent','Vincent Parrot','admin@gmail.com','+33756321569','france lyon','5 rue andré bollier','482c811da5d5b4bc6d497ffa98491e38','','20/20/1'); //vous pouvez modifier le details si dessus en mettant vos propre details 
+-----------------------------------------------------------------------------------------
 
 // la creation des article:les articles sont postés par l'admin et les employés. 
 
@@ -45,11 +64,12 @@ annee varchar(20),
 prix varchar(20),
 image varchar(255),
 description text,
-emailUser varchar(50),   //cette clé email vas nous permetre de joindre la table item avec la table users nous allons utiliser l'email
+emailUser varchar(50),   
+//cette clé email vas nous permetre de joindre la table item avec la table users nous allons utiliser l'email
 entrer date,
 PRIMARY KEY(idItem)   
 )
-
+---------------------------------------------------------------------------------------
 //la creation de la table services dans le quel les services proposés par le garage seront modifier par l'administrateur:
 
 CREATE TABLE services(
@@ -65,8 +85,10 @@ PRIMARY KEY(serviceid)
 INSERT INTO `services`(`service`, `description`, `annee`) 
    VALUES ('type de service', 'notre description',NOW())";
 
+-------------------------------------------------------------------------------------
 // administrateur doit gerer les heures d'ouverture et de la fermeture du garage
 creons une table HORAIRE,elles seront maintenu par l'administrateur:
+NB: ne modifier aucune lettre ou aucun mot copier comme vous voyez
 
 CREATE TABLE horraire(
 horraireid int(11) AUTO_INCREMENT,
@@ -79,6 +101,7 @@ description text,
 PRIMARY KEY(horraireid)
 )
 
+---------------------------------------------------------------------------------
 //pour creer le tableau de temoignages:ces sont les reviews de clients 
 ils seront crées par les visiteurs et enregistré dans la base de données. 
 
@@ -92,6 +115,7 @@ entry date,
 PRIMARY KEY(idtemoignage)
 )
 
+----------------------------------------------------------------------------------------------------
 //nous allons cree une table dans la quelle un client pourra contacter diretement l'admin en lui envoyant 
 un message direct : ce genre de message sera vu et repondu par l'administrateur soit en contactant le visiteur 
 par son numero de telephone ou par son mail. donc c'est un message direct utilisant la base de donnée
@@ -107,6 +131,8 @@ status varchar(10),
 item int(11),
 PRIMARY KEY(idmessage)
 )
+
+le site utilise un systeme de messagerie direct et l'admin s'en occupera  
 
 
 
