@@ -1,0 +1,41 @@
+if(strlen($password) < 8){
+                ?>
+<div style="background-color:#d94350;display:flex;justify-content:center;
+align-items:center;border-radius:5px;padding:10px 20px;">
+    <h5 style="color: #f2f2f2;font-size:18px">le mot de pass doit avoir aumoin 8 characteurs</h5>
+</div>
+<?php
+               }else{
+
+                $password_hash = md5($password);
+
+                $picture=$_FILES['picture'];
+                $filename=$_FILES['picture']['name'];
+                $file_size=$_FILES['picture']['size'];
+                $file_error=$_FILES['picture']['error'];
+                $tmp=$_FILES['picture']['tmp_name'];
+                $file_type=$_FILES['picture']['type'];
+                
+                $fileext=explode('.',$filename);
+                $filecheck=strtolower(end($fileext));
+               
+                $destinationfile='profilpicture/'.$username.'/images/';
+                $target_file=$destinationfile.basename($_FILES['picture']['name']);
+                 $extensions=array("jpeg","jpg","png","webp","ARW");
+                 $max_file_size = 200000000;
+                 if (in_array($filecheck,$extensions)==false) {
+                    ?>
+<div style="background-color:#45FFCA;display:flex;justify-content:center; align-items:center;
+                                                      border-radius:5px;padding:10px 20px;">
+    <h5 style="color: #f2f2f2;font-size:18px">votre photo est ajour</h5>
+</div>
+<?php
+                            }
+                            if (!file_exists ($destinationfile)) {
+                             mkdir($destinationfile,0777,true);
+                             }
+                           move_uploaded_file($tmp,$target_file);
+                          $url=$_SERVER['HTTP_REFERER'];
+                          $seg=explode('/',$url);
+                          $path=$seg[0].'/'.$seg[1].'/'.$seg[2].'/'.$seg[3];
+                          $full_url=$path.'/'.'profilpicture/'.$username.'/images/'.$filename;
